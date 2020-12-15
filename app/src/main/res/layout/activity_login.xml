@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".LoginActivity">
+
+        <EditText
+            android:id="@+id/etmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            />
+        <EditText
+            android:id="@+id/etmdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etmail"
+            android:ems="10"
+            android:inputType="textPassword"
+            />
+    <Button
+        android:id="@+id/btninscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etmdp"
+        android:onClick="createAccount"
+        android:text="Inscription"
+        >
+    </Button>
+    <Button
+        android:id="@+id/btnconnexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etmdp"
+        android:onClick="clickConnexion"
+        android:text="Connexion"
+        android:layout_toRightOf="@id/btninscription"
+        >
+    </Button>
+
+
+</RelativeLayout>
