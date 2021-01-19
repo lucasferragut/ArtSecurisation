@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
-            //intent = Intent(this, ListActivity::class.java)
+            intent = Intent(this, AccueilActivity::class.java)
             startActivity(intent)
             Toast.makeText(baseContext, "Vous etes connecté en tant que"+currentUser.email.toString(),
                 Toast.LENGTH_SHORT).show()
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(baseContext, "Authentication success.",
                             Toast.LENGTH_SHORT).show()
                         val user = auth.currentUser
-                        //intent = Intent(this, ListActivity::class.java)
+                        intent = Intent(this, AccueilActivity::class.java)
                         startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.

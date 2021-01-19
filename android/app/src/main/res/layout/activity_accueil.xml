@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".AccueilActivity">
+
+    <TextView android:id="@+id/tvTemperatureChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Graphique de la Température (C°/min)" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="332dp"
+        android:layout_height="225dp"
+        android:layout_below="@id/tvTemperatureChart"
+        tools:ignore="MissingClass" />
+
+    <TextView android:id="@+id/tvHumidityChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chart"
+        android:text="Graphique de l'Humidité (%/min)" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart2"
+        android:layout_width="333dp"
+        android:layout_height="198dp"
+        android:layout_below="@id/tvHumidityChart"
+        tools:ignore="MissingClass" />
+
+</RelativeLayout>
