@@ -4,45 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top"
     tools:context=".LoginActivity">
 
-        <EditText
-            android:id="@+id/etmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            />
-        <EditText
-            android:id="@+id/etmdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etmail"
-            android:ems="10"
-            android:hint="mot de passe"
-            android:inputType="textPassword"
-            />
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/custom_toolbar" />
+
+    <EditText
+        android:id="@+id/etmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="278dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/etmdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="mot de passe"
+        android:inputType="textPassword" />
+
     <Button
         android:id="@+id/btninscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etmdp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="99dp"
+        android:layout_marginTop="2dp"
         android:onClick="createAccount"
-        android:text="Inscription"
-        >
-    </Button>
+        android:text="Inscription"></Button>
+
     <Button
         android:id="@+id/btnconnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etmdp"
-        android:onClick="clickConnexion"
-        android:text="Connexion"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/btninscription"
-        >
-    </Button>
+        android:onClick="clickConnexion"
+        android:text="Connexion"></Button>
 
 
 </RelativeLayout>

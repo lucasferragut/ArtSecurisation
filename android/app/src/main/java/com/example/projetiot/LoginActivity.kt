@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -17,18 +18,20 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        //setSupportActionBar(toolbar_custom)
+
     }
 
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if(currentUser != null){
-            intent = Intent(this, AccueilActivity::class.java)
+        /*if(currentUser != null){
+            intent = Intent(this, OeuvresActivity::class.java)
             startActivity(intent)
             Toast.makeText(baseContext, "Vous etes connecté en tant que"+currentUser.email.toString(),
                 Toast.LENGTH_SHORT).show()
-        }
+        }*/
     }
 
     fun SignIn(email: String, password: String){
@@ -47,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(baseContext, "Authentication success.",
                             Toast.LENGTH_SHORT).show()
                         val user = auth.currentUser
-                        intent = Intent(this, AccueilActivity::class.java)
+                        intent = Intent(this, OeuvresActivity::class.java)
                         startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.

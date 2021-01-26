@@ -12,6 +12,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_accueil.*
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 
 class AccueilActivity() : AppCompatActivity() {
@@ -21,6 +24,8 @@ class AccueilActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accueil)
+
+        oeuvre_title.text = intent.getStringExtra("title")
 
         // in this example, a LineChart is initialized from xml
         var chart: LineChart = findViewById<LineChart>(R.id.chart)
@@ -67,41 +72,6 @@ class AccueilActivity() : AppCompatActivity() {
 
         chart.data = LineData(LineDataSet);
         chart.animateXY(500, 500);
-
-
-
-        /*db.collection("Books")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    books.add(Book(document.getString("title")!!,
-                        document.getString("author")!!,
-                        document.getString("imgUrl")!!,
-                        document.getString("description")!!,
-                        document.getString("annee")!!,
-                        document.id,
-                        document.getBoolean("isread")!!))
-                }
-                viewManager = LinearLayoutManager(this)
-                viewAdapter = BookAdapter(books)
-                viewAdapter.notifyDataSetChanged()
-
-                recyclerView = findViewById<RecyclerView>(R.id.book_list).apply {
-                    // use this setting to improve performance if you know that changes
-                    // in content do not change the layout size of the RecyclerView
-                    setHasFixedSize(true)
-
-                    // use a linear layout manager
-                    layoutManager = viewManager
-
-                    // specify an viewAdapter (see also next example)
-                    adapter = viewAdapter
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "Error getting documents: ", exception)
-            }*/
 
     }
 
