@@ -26,12 +26,12 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        /*if(currentUser != null){
+        if(currentUser != null){
             intent = Intent(this, OeuvresActivity::class.java)
             startActivity(intent)
             Toast.makeText(baseContext, "Vous etes connecté en tant que"+currentUser.email.toString(),
                 Toast.LENGTH_SHORT).show()
-        }*/
+        }
     }
 
     fun SignIn(email: String, password: String){
@@ -87,8 +87,14 @@ class LoginActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
 
                 }
-
-                // ...
             }
+    }
+
+    fun logOut(view: View) {
+        if(Firebase.auth.currentUser != null){
+            Firebase.auth.signOut();
+            intent = Intent(this, LoginActivity::class.java);
+            startActivity(intent);
+        }
     }
 }

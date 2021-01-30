@@ -45,7 +45,7 @@
         android:layout_marginLeft="99dp"
         android:layout_marginTop="2dp"
         android:onClick="createAccount"
-        android:text="Inscription"></Button>
+        android:text="Inscription" />
 
     <Button
         android:id="@+id/btnconnexion"
@@ -56,7 +56,9 @@
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/btninscription"
         android:onClick="clickConnexion"
-        android:text="Connexion"></Button>
+        android:text="Connexion"
+        android:layout_toEndOf="@id/btninscription"
+        android:layout_marginStart="3dp" />
 
 
 </RelativeLayout>

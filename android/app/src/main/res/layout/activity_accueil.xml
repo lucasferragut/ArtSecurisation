@@ -4,38 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".AccueilActivity">
 
-    <TextView
-        android:id="@+id/oeuvre_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView android:id="@+id/tvTemperatureChart"
-        android:layout_width="wrap_content"
+    <include
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Graphique de la Température (C°/min)" />
+        layout="@layout/custom_toolbar" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="332dp"
-        android:layout_height="225dp"
-        android:layout_below="@id/tvTemperatureChart"
-        tools:ignore="MissingClass" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:context=".AccueilActivity"
+        tools:ignore="UseSwitchCompatOrMaterialXml">
 
-    <TextView android:id="@+id/tvHumidityChart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chart"
-        android:text="Graphique de l'Humidité (%/min)" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/TemperatureChart"
+            android:layout_width="332dp"
+            android:layout_height="225dp"
+            android:layout_below="@id/tvTemperatureChart"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            tools:ignore="MissingClass" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart2"
-        android:layout_width="333dp"
-        android:layout_height="198dp"
-        android:layout_below="@id/tvHumidityChart"
-        tools:ignore="MissingClass" />
+        <TextView
+            android:id="@+id/oeuvre_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/TemperatureChart"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="44dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvTemperatureChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="103dp"
+            android:text="Graphique de la Température (C°/min)" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/HumidityChart"
+            android:layout_width="333dp"
+            android:layout_height="198dp"
+            android:layout_below="@id/tvHumidityChart"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="42dp"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            tools:ignore="MissingClass">
+
+        </com.github.mikephil.charting.charts.LineChart>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/HumidityChart"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="140dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginRight="140dp"
+            android:background="@drawable/roundedbutton"
+            android:onClick="switchAlarmState"
+            android:text="Lancer / Couper Alarme"
+            android:textColor="#FFFF" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="235dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="82dp"
+            android:layout_marginRight="82dp"
+            android:text="Activer / Desactiver l'alarme" />
+
+        <TextView
+            android:id="@+id/tvHumidityChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TemperatureChart"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="40dp"
+            android:text="Graphique de l'Humidité (%/min)" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

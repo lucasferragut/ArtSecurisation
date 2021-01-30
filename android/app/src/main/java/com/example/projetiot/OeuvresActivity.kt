@@ -9,7 +9,10 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.line_layout.view.*
 
@@ -64,18 +67,27 @@ class OeuvresActivity: AppCompatActivity()  {
             }
     }
 
-    fun bookDetails(view: View){
-        intent = Intent(this, AccueilActivity::class.java)
+    fun oeuvreDetails(view: View){
+        intent = Intent(this, MenuActivity::class.java)
         for(b in oeuvres){
             if(b.titre == view.item_title.text.toString()){
                 intent.putExtra("titre", b.titre)
-                intent.putExtra("artist", b.artist)
-                intent.putExtra("artMovement", b.artMovement)
-                intent.putExtra("technique", b.technique)
-                intent.putExtra("date", b.date)
             }
         }
         startActivity(intent)
+    }
+
+
+    private val auth by lazy {
+        FirebaseAuth.getInstance()
+    }
+
+    fun logOut(view: View) {
+        if(Firebase.auth.currentUser != null){
+            Firebase.auth.signOut();
+            intent = Intent(this, LoginActivity::class.java);
+            startActivity(intent);
+        }
     }
 
 }
