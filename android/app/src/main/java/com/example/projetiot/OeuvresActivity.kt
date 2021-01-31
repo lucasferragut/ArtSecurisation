@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.line_layout.view.*
 
 
@@ -29,8 +26,6 @@ class OeuvresActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_oeuvres)
 
-        //setSupportActionBar(myToolbar)
-
         db.collection("oeuvres")
             .get()
             .addOnSuccessListener { result ->
@@ -38,6 +33,7 @@ class OeuvresActivity: AppCompatActivity()  {
                     oeuvres.add(
                         Oeuvre(
                             document.id!!,
+                            document.getString("titre")!!,
                             document.getString("artist")!!,
                             document.getString("artMovement")!!,
                             document.getDouble("date")!!,
@@ -72,6 +68,7 @@ class OeuvresActivity: AppCompatActivity()  {
         for(b in oeuvres){
             if(b.titre == view.item_title.text.toString()){
                 intent.putExtra("titre", b.titre)
+                intent.putExtra("idoeuvre", b.id)
             }
         }
         startActivity(intent)

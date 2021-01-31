@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,18 +35,18 @@ class AccueilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accueil)
 
-        oeuvre_title.text = intent.getStringExtra("titre")
+        oeuvre_title.text = intent.getStringExtra("titre")!!
 
         //------------------------------------------------------------- Initialisation et gestion du switch -----------------------------------------------------
         switch1.setOnCheckedChangeListener { _, isChecked ->
-            db.collection("oeuvres").document(intent.getStringExtra("titre")!!)
+            db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!)
                 .update("isAlarmActivated",isChecked)
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Error checkbox", Toast.LENGTH_LONG).show()
                 }
         }
 
-        db.collection("oeuvres").document(intent.getStringExtra("titre")!!)
+        db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!)
             .get()
             .addOnSuccessListener { result -> switch1.isChecked =
                 (result.getBoolean("isAlarmActivated") == true)
@@ -145,7 +146,7 @@ class AccueilActivity : AppCompatActivity() {
 
     private fun getTemperatureList() : ArrayList<Entry>{
         val lastHour: DateTime = DateTime().minusHours(1)
-        db.collection("oeuvres").document(intent.getStringExtra("titre")!!).collection("humidityAndTemperature")
+        db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!).collection("humidityAndTemperature")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -168,7 +169,7 @@ class AccueilActivity : AppCompatActivity() {
 
     private fun getHumidityList() : ArrayList<Entry>{
         val lastHour: DateTime = DateTime().minusHours(1)
-        db.collection("oeuvres").document(intent.getStringExtra("titre")!!).collection("humidityAndTemperature")
+        db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!).collection("humidityAndTemperature")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -206,7 +207,7 @@ class AccueilActivity : AppCompatActivity() {
     fun switchAlarmState(view: View) {
 
         //On récupère l'état actuel de l'alarme
-        db.collection("oeuvres").document(intent.getStringExtra("titre")!!)
+        db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!)
             .get()
             .addOnSuccessListener {
                 result -> isAlarmOn = (result.getBoolean("isAlarmOn") == true)
@@ -216,11 +217,23 @@ class AccueilActivity : AppCompatActivity() {
             }
 
         //On mdoifie l'état de l'alarme
-        db.collection("oeuvres").document(intent.getStringExtra("titre")!!)
+        db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!)
             .update("isAlarmOn", !isAlarmOn)
             .addOnFailureListener { exception ->
                 Log.d("TAG", "Error updating documents: ", exception)
             }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        val idoeuvre = intent.getStringExtra("idoeuvre")!!
+        val titre = intent.getStringExtra("titre")!!
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("idoeuvre", idoeuvre)
+            intent.putExtra("titre", titre)
+            startActivity(intent)
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 }

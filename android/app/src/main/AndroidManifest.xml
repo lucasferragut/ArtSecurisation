@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".HistoriqueActivity">
         </activity>
+        <activity android:name=".HistoriqueDetailActivity">
+        </activity>
 
         <service
             android:name=".MyFirebaseMessagingService">
