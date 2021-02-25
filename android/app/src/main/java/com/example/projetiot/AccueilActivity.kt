@@ -57,8 +57,10 @@ class AccueilActivity : AppCompatActivity() {
         var HumidityChart: LineChart = findViewById<LineChart>(R.id.HumidityChart)
         Temperature = ArrayList()
         Humidity = ArrayList()
-        val LineDataSetTemperature = LineDataSet(getTemperatureList(), "Temperature");
-        val LineDataSetHumidity = LineDataSet(getHumidityList(), "Humidité");
+        getHumidityList();
+        getTemperatureList();
+        val LineDataSetTemperature = LineDataSet(Temperature, "Temperature");
+        val LineDataSetHumidity = LineDataSet(Humidity, "Humidité");
 
         //----------------------------------------------------------------- Graphique Température ---------------------------------------------------------
         //Paramètres de notre courbe
@@ -67,7 +69,7 @@ class AccueilActivity : AppCompatActivity() {
         LineDataSetTemperature.circleHoleRadius = 2f;
         LineDataSetTemperature.color = Color.RED;
         LineDataSetTemperature.setCircleColor(Color.RED);
-        LineDataSetTemperature.setDrawValues(true);
+        LineDataSetTemperature.setDrawValues(false);
 
         //Colore sous la courbe (Filled Line Chart)
         LineDataSetTemperature.fillAlpha = 255;
@@ -108,7 +110,7 @@ class AccueilActivity : AppCompatActivity() {
         LineDataSetHumidity.circleHoleRadius = 2f;
         LineDataSetHumidity.color = Color.BLUE;
         LineDataSetHumidity.setCircleColor(Color.BLUE);
-        LineDataSetHumidity.setDrawValues(true);
+        LineDataSetHumidity.setDrawValues(false);
 
         //Colore sous la courbe (Filled Line Chart)
         LineDataSetHumidity.fillAlpha = 255;
@@ -144,34 +146,44 @@ class AccueilActivity : AppCompatActivity() {
 
     }
 
-    private fun getTemperatureList() : ArrayList<Entry>{
+    private fun getTemperatureList(){
         val lastHour: DateTime = DateTime().minusHours(1)
         db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!).collection("humidityAndTemperature")
             .get()
             .addOnSuccessListener { result ->
+                var i: Float = 0F;
                 for (document in result) {
-                    val currentTime = DateTime(document.id.split("_")[0].split("-")[2].toInt(), document.id.split("_")[0].split("-")[0].toInt(), document.id.split("_")[0].split("-")[1].toInt(), document.id.split("_")[1].split(":")[0].toInt(), document.id.split("_")[1].split(":")[1].toInt(), document.id.split("_")[1].split(":")[2].toInt());
+                    val year = document.id.split("_")[0].split("-")[2].toInt();
+                    val month = document.id.split("_")[0].split("-")[0].toInt();
+                    val day = document.id.split("_")[0].split("-")[1].toInt();
+                    val hour = document.id.split("_")[1].split(":")[0].toInt();
+                    val minute = document.id.split("_")[1].split(":")[1].toInt();
+                    val seconde = document.id.split("_")[1].split(":")[2].toInt();
+                    val currentTime = DateTime(year,month , day , hour, minute , seconde);
                     if(currentTime.isAfter(lastHour)){
                         Temperature.add(
                             Entry(
-                                currentTime.minuteOfHour().toString().toFloat(),
+                                i%60F,
                                 document.getDouble("temperature")!!.toFloat()
                             )
                         );
+                        i++;
                     }
                 }
+                TemperatureChart.notifyDataSetChanged();
+                TemperatureChart.invalidate();
             }
             .addOnFailureListener { exception ->
                 Log.d("TAG", "Error getting documents: ", exception)
             }
-        return Temperature
     }
 
-    private fun getHumidityList() : ArrayList<Entry>{
+    private fun getHumidityList(){
         val lastHour: DateTime = DateTime().minusHours(1)
         db.collection("oeuvres").document(intent.getStringExtra("idoeuvre")!!).collection("humidityAndTemperature")
             .get()
             .addOnSuccessListener { result ->
+                var i: Float = 0F;
                 for (document in result) {
                     val year = document.id.split("_")[0].split("-")[2].toInt();
                     val month = document.id.split("_")[0].split("-")[0].toInt();
@@ -183,17 +195,19 @@ class AccueilActivity : AppCompatActivity() {
                     if(currentTime.isAfter(lastHour)){
                         Humidity.add(
                             Entry(
-                                currentTime.minuteOfHour().toString().toFloat(),
+                                i%60F,
                                 document.getDouble("humidity")!!.toFloat()
                             )
                         );
+                        i++;
                     }
                 }
+                HumidityChart.notifyDataSetChanged();
+                HumidityChart.invalidate();
             }
             .addOnFailureListener { exception ->
                 Log.d("TAG", "Error getting documents: ", exception)
             }
-        return Humidity
     }
 
     fun logOut(view: View) {
